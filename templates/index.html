@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        /* Banner for Logo */
+        .logo-banner {
+            width: 100%;
+            background-color: #333;  /* Dark background color for the banner */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo {
+            height: 100px;
+            width: 250px;
+            border-radius: 20%;  /* Make the logo curvy */
+        }
+
+        /* Banner for Search */
+        .search-banner {
+            width: 100%;
+            background-color: #333;  /* Dark background for the search bar */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .search-bar {
+            width: 50%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        /* Main container for products */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;  /* Centering the container */
+            text-align: center;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;  /* Space between search bar and product list */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        /* Animation for product items */
+        @keyframes slideInFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Product item styling */
+        .product-item {
+            width: auto;
+            height: auto;
+            max-height: 600px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 2px solid black;
+            border-radius: 15px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideInFromTop 0.5s ease-out;  /* Apply the animation */
+        }
+
+        .product-item img {
+            width: 300px;
+            height: auto;
+            max-height: 300px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo Banner -->
+    <div class="logo-banner">
+        <img src="https://firebasestorage.googleapis.com/v0/b/shakir-tv.appspot.com/o/c3e70e40-bf97-4b9f-a66b-ef09b28f4949.jpeg?alt=media&token=e9baacbd-b58c-4e43-9a32-1ca298d4aba8" alt="Logo" class="logo">
+    </div>
+
+    <!-- Search Banner -->
+    <div class="search-banner">
+        <input type="text" id="search" class="search-bar" placeholder="Search for a product..." onkeyup="searchProducts()">
+    </div>
+
+    <!-- Product List -->
+    <div class="container">
+        <h1>Products Catalogue</h1>
+        <ul id="product-list">
+            {% for product in products %}
+                <li class="product-item" data-name="{{ product.name }}">
+                    <h2>{{ product.name }} - R{{ product.price }}</h2>
+                    <p>{{ product.description }}</p>
+                    {% if product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    {% endif %}
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="button">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        // Search function to filter products based on user input
+        function searchProducts() {
+            var input, filter, ul, li, h2, i, txtValue;
+            input = document.getElementById('search');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("product-list");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items and hide those that don't match the search
+            for (i = 0; i < li.length; i++) {
+                h2 = li[i].getElementsByTagName("h2")[0];
+                txtValue = h2.textContent || h2.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
+

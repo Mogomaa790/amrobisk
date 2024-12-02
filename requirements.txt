@@ -1,0 +1,4 @@
+Flask==3.1.0
+firebase-admin==6.5.0
+google-cloud-firestore==2.18.0
+# Add any other dependencies you need
