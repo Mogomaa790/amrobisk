@@ -1,23 +1,5 @@
 {
   "projects": {
-    "production": "amrobisk-2d361",
-    "default": "amrobisk-2d361",
-    "admin": "amrobisk-admin"
-  },
-  "targets": {
-    "amrobisk-2d361": {
-      "hosting": {
-        "user": [
-          "admin7-19ed1"
-        ],
-        "admin-site": [
-          "amrobisk-admin-site"
-        ],
-        "user-site": [
-          "amrobisk"
-        ]
-      }
-    }
-  },
-  "etags": {}
+    "default": "amrobisk-2d361"
+  }
 }
